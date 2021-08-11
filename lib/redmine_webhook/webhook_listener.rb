@@ -74,14 +74,22 @@ module RedmineWebhook
       }.to_json
     end
 
+    $LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), '.'))
+    require 'jandi_api_wrapper'
+    include Jandi_api_wrapper
+
     def post(webhooks, request_body)
       Thread.start do
         webhooks.each do |webhook|
           begin
-            Faraday.post do |req|
-              req.url webhook.url
-              req.headers['Content-Type'] = 'application/json'
-              req.body = request_body
+            if !webhook.url.match(/wh.jandi.com/).nil?
+              send_to_jandi(webhook.url,JSON.parse(request_body))
+            else
+              Faraday.post do |req|
+                req.url webhook.url
+                req.headers['Content-Type'] = 'application/json'
+                req.body = request_body
+              end
             end
           rescue => e
             Rails.logger.error e
