@@ -1,7 +1,10 @@
-Redmine WebHook Plugin
+Redmine WebHook Plugin - Forked
 ======================
 
 A Redmine plugin posts webhook on creating and updating tickets.
+(Forked from https://github.com/suer/redmine_webhook.git)
+
+* Support Jandi Messenger.
 
 Author
 ------------------------------
@@ -12,7 +15,7 @@ Install
 Type below commands:
 
     $ cd $RAILS_ROOT/plugins
-    $ git clone https://github.com/suer/redmine_webhook.git
+    $ git clone https://github.com/xyzlast/redmine_webhook
     $ rake redmine:plugins:migrate RAILS_ENV=production
 
 Then, restart your redmine.
